@@ -1,38 +1,33 @@
 # Hermes cron (staggered heartbeats)
 
-Hermes schedules jobs via its **cron** system inside the gateway (see [Hermes cron docs](https://hermes-agent.nousresearch.com/docs/user-guide/features/cron)).
+Hermes runs scheduled jobs via its **cron** system inside the gateway (see [Hermes cron docs](https://hermes-agent.nousresearch.com/docs/user-guide/features/cron)).
 
-## Pattern (match OpenClaw guide)
+## Read this first
 
-Avoid waking every agent at the same minute — offset by 2–5 minutes.
+**[staggered-heartbeats.md](./staggered-heartbeats.md)** — full Scenario 2 schedule table, session keys, and example crontab **with unique minute offsets** so agents do not all wake at once (matches OpenClaw/CrewClaw guidance).
 
-Example (run inside Hermes environment or via CLI):
+## Rules
 
-```text
-# Illustrative only — use `hermes cron` / gateway UI to register real jobs
-# PM-style check every 30 min
-# Content creator every 15 min at :05, :20, :35, :50
-# Analytics every hour at :12
-```
+1. **Stagger** — never fire every agent at `:00`. Use offsets like `:03`, `:08`, `:13`, …  
+2. **Match session** — each job must target the correct Hermes conversation / session key (see `agents.md`).  
+3. **Heartbeat message** — short system prompt, e.g. “Read `shared/tasks.json` and `shared/standup.md`; take one concrete next step or log a blocker.”
 
 ## Docker
-
-Use the Hermes container:
 
 ```bash
 docker compose exec hermes hermes --help
 ```
 
-Register cron jobs that send a message to the API server or use built-in `hermes` cron storage under `/opt/data/cron/` (Hermes creates this when configured).
+Persisted cron state typically lives under `hermes-data/cron/` once the gateway creates it.
 
-## Scenario 2 template
+## Suggested cadence (summary)
 
 | Agent | Suggested cadence |
 |-------|-------------------|
 | Content Creator | every 15–30 min |
 | Twitter Engager | every 15 min |
 | Instagram Curator | every 30–60 min |
-| Reddit Community Builder | 1–2x daily |
-| Analytics Reporter | hourly + end-of-week |
+| Reddit Community Builder | 1–2× daily |
+| Analytics Reporter | hourly + weekly rollup |
 
-This folder is documentation; your real cron definitions live in Hermes data (`hermes-data/cron/`) after you run `hermes` cron setup.
+Details and non-colliding minute marks: **[staggered-heartbeats.md](./staggered-heartbeats.md)**.

@@ -7,6 +7,8 @@ Runtime notes:
 - **Hermes Agent** runs as the agent runtime (OpenAI-compatible API server).
 - The web app provides a **setup wizard** + **agent chat UI** for the Scenario 2 team.
 
+**Multi-agent workspace (OpenClaw-style):** each agent has `hermes-workspace/agents/<role>/SOUL.md`, unique **session keys**, **staggered heartbeat crons** (`hermes-workspace/cron/`), and a **notification** pattern (`shared/tasks.json`, @mentions, optional Telegram) — see [`hermes-workspace/agents.md`](hermes-workspace/agents.md).
+
 ### Quick start
 
 1) Create `marketing-campaign-launch/.env` and add your OpenRouter key (used by Hermes for inference):
@@ -42,13 +44,17 @@ npm run dev
 What `npm run dev` does:
 
 - Runs `docker compose up -d hermes` so the Hermes container starts and listens on port **8642**.
-- Waits until that port accepts connections, then starts **Next.js** on **http://localhost:3000**.
+- Waits until that port accepts connections, then starts **Next.js** on **http://localhost:3000** with **`next dev --turbo`** (Turbopack). Avoids webpack dev chunk corruption (`./331.js`). Fallback: `npm run dev:webpack` / `npm run dev:next:webpack`.
 
 If you only want the web server without starting Hermes (for example, no Docker available), use:
 
 ```bash
 npm run dev:next
 ```
+
+If dev mode still misbehaves after `npm run clean`, run a production build locally (no HMR): **`npm run dev:stable`** (`next build` + `next start` on port 3000).
+
+If the dev server shows weird module errors, stop it, run **`npm run clean`** (clears `.next` and `node_modules/.cache`), then start again. Make sure your `package.json` `dev` script includes **`--turbo`** — if you still see “Webpack” in the terminal banner, you are not on Turbopack.
 
 Note: pressing **Ctrl+C** stops Next.js only; the Hermes container keeps running in the background. To stop it: `docker compose stop hermes`.
 

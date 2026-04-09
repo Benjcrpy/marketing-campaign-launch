@@ -1,4 +1,8 @@
-/** Session keys follow OpenClaw-style: agent:<team>:<name>:main */
+/**
+ * Session keys (Hermes `conversation` id) follow OpenClaw-style isolation:
+ * `agent:<team>-<agent-id>:main`. See `hermes-workspace/agents.md` and
+ * https://www.crewclaw.com/blog/openclaw-multi-agent-setup-guide
+ */
 export const SCENARIO2_TEAM = "scenario2";
 
 export function sessionKeyForAgent(agentId: string): string {

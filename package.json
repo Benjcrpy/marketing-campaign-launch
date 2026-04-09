@@ -3,12 +3,17 @@
   "private": true,
   "version": "0.1.0",
   "scripts": {
-    "dev": "docker compose up -d hermes && wait-on tcp:127.0.0.1:8642 && next dev -p 3000",
-    "dev:next": "next dev -p 3000",
+    "dev": "docker compose up -d hermes && wait-on tcp:127.0.0.1:8642 && next dev --turbo -p 3000",
+    "dev:next": "next dev --turbo -p 3000",
+    "dev:stable": "npm run build && npm run start",
+    "dev:webpack": "docker compose up -d hermes && wait-on tcp:127.0.0.1:8642 && next dev -p 3000",
+    "dev:next:webpack": "next dev -p 3000",
     "build": "next build",
     "start": "next start -p 3000",
     "lint": "next lint",
-    "clean": "rm -rf .next"
+    "clean": "rm -rf .next node_modules/.cache",
+    "dev:clean": "npm run clean && npm run dev",
+    "dev:next:clean": "npm run clean && npm run dev:next"
   },
   "dependencies": {
     "@swc/helpers": "^0.5.15",

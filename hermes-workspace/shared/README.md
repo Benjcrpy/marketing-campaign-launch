@@ -1,9 +1,13 @@
 # Shared workspace
 
-File-based handoffs between Scenario 2 agents (OpenClaw-style).
+File-based handoffs between Scenario 2 agents (OpenClaw-style): **tasks**, **standup**, optional **drafts**.
 
-- **`tasks.json`** — append tasks with `owner` (agent id), `status`, `payload`.
-- **`standup.md`** — human-readable daily summary.
-- **`drafts/`** — optional folder for long-form copy (create when needed).
+| File / folder | Purpose |
+|----------------|---------|
+| **`tasks.json`** | Append tasks with `owner`, `status`, `payload` — durable across heartbeats |
+| **`standup.md`** | Daily yesterday / today / blockers |
+| **`drafts/`** | Optional long-form copy (create when needed) |
 
-When you mention another agent (e.g. `@TwitterEngager`), add a row to `tasks.json` so the next heartbeat or chat picks it up.
+**Notification patterns** (@mentions, URGENT, optional Telegram): see **[NOTIFICATIONS.md](./NOTIFICATIONS.md)**.
+
+When you mention another agent (e.g. `@TwitterEngager`), add or update a row in `tasks.json` so the next heartbeat or chat picks it up reliably.
