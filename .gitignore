@@ -5,6 +5,7 @@ node_modules/
 .next
 **/.next
 out/
+*.tsbuildinfo
 
 # Environment (use .env.example as template)
 .env
