@@ -1,0 +1,27 @@
+{
+  "name": "scenario2-marketing-campaign-launch",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "docker compose up -d hermes && wait-on tcp:127.0.0.1:8642 && next dev -p 3000",
+    "dev:next": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start -p 3000",
+    "lint": "next lint",
+    "clean": "rm -rf .next"
+  },
+  "dependencies": {
+    "@swc/helpers": "^0.5.15",
+    "js-yaml": "^4.1.0",
+    "next": "^15.5.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "25.5.2",
+    "@types/react": "19.2.14",
+    "typescript": "6.0.2",
+    "wait-on": "^9.0.4"
+  }
+}

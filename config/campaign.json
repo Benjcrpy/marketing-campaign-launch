@@ -1,0 +1,16 @@
+{
+  "campaignName": "Launch Campaign",
+  "productOrService": "Computer",
+  "targetAudience": "Gamers",
+  "primaryGoal": "Signups",
+  "channels": [
+    "X",
+    "Instagram",
+    "Reddit",
+    "Email"
+  ],
+  "startDate": "2026-07-23",
+  "endDate": "2026-08-23",
+  "brandVoice": "clear, confident, helpful",
+  "offer": "10"
+}
